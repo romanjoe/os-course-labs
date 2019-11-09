@@ -11,7 +11,7 @@ ENV DTC_EXTRA_ARGS=
 
 # Install dependencies.
 RUN apt-get update && \
-    apt-get install -y build-essential flex bison git
+    apt-get install -y build-essential flex bison git libssl-dev bc wget
 
 # Compile and install the dtc compiler.
 WORKDIR /opt
@@ -28,11 +28,18 @@ WORKDIR /opt/pitools
 ENV TOOLCHAIN /opt/pitools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf
 ENV PATH $TOOLCHAIN/bin:$PATH
 # Install scripts into usr/bin so the user can perform device tree commands.
-#COPY ./scripts/ /usr/bin/
+WORKDIR /home
+RUN git clone --branch rpi-4.19.y https://github.com/raspberrypi/linux.git
+WORKDIR /home/linux
+RUN wget https://raw.githubusercontent.com/romanjoe/os-course-labs/master/kernel-config/.config && \
+    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- oldconfig && \
+    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- && \
+    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules
+
+WORKDIR /home/workdir
 
 # Copy and compile any overlays into this container so they can later be loaded.
 #WORKDIR /overlays
 #COPY ./overlays/ /overlays/
 #RUN compile_overlays /overlays
 
-CMD arm-linux-gnueabihf-cpp --version && echo $(TOOLCHAIN)
