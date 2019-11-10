@@ -21,13 +21,16 @@ RUN git checkout tags/$DTC_TAG -b release && \
     make && \
     cp dtc /usr/bin/
 
+# Get Cross Compiler from offcial repo
 WORKDIR /opt
 RUN git clone --progress --verbose https://github.com/raspberrypi/tools.git --depth=1 pitools
 WORKDIR /opt/pitools
-#RUN ln -s /opt/rpi-crosstools-x64/bin /usr/bin/arm-rpi-linux-gnueabihf \
+
+# Export Cross Compile path to Docker environment variables
 ENV TOOLCHAIN /opt/pitools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf
 ENV PATH $TOOLCHAIN/bin:$PATH
-# Install scripts into usr/bin so the user can perform device tree commands.
+
+# Build Raspberry Pi kernel to get working source tree for cross compilation
 WORKDIR /home
 RUN git clone --branch rpi-4.19.y https://github.com/raspberrypi/linux.git
 WORKDIR /home/linux
