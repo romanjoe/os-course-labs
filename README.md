@@ -14,7 +14,20 @@ Start docker-daemon process:
     docker-machine env
     eval $(docker-machine env)
 
-Register on Docker Hub repository site to get images.
+**On Windows**
+
+Using guide provided by Docker
+https://docs.docker.com/docker-for-windows/install/
+
+**On Linux**
+
+Most likely docker is present in your disros packet manager. For example refer to guide for Ubuntu 18.04
+
+https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+
+### Start using Docker
+
+Register on [Docker Hub](https://hub.docker.com/) repository site to get access to images.
 
 Login to Docker Hub account before executing `docker` command.
 
@@ -29,10 +42,42 @@ This may take some time, as image is aroung 3GB.
 #### rpi-cc Docker image contents
 
 `Ubuntu` - base image
-`arm-linux-gnueabihf-` - toolchain for cross compilation from official raspberry pi tools repository
+
+`arm-linux-gnueabihf-` - toolchain for cross compilation from official raspberry pi tools repository, compatible with Raspbian Buster
+
 `build utils` - set of packages needed to build kernel
-`linux kernel` - source code for linux kernel version 4.19.y used on raspberry pi board
+
+`linux kernel` - source code for linux kernel version 4.19.y used on raspberry pi board and installed in Raspbian Buster Lite by the time of creation of this image
+
 `compiled kernel` - raspberry pi kernel to support cross compilation of modules
+
+#### Useful Docker commands
+
+Start Docker container in interactive mode. Container will be started and /bin/bash program executed. You are logged in as root user inside container.
+
+    docker run -ti %image_name:tag% /bin/bash
+
+Additionally mount some user folders to container before run. In this example contents of host directory `/Users/rnok/ucu/os-course-labs/demo` will be mounted to contaner at `/home/workdir`. `/home/workdir` is set to default work directory in image configuration. You also will be logged in as root. Issue `ls -l` command to see contents of `demo` folder present in container space.
+
+    docker run -v /Users/rnok/ucu/os-course-labs/demo:/home/workdir -it romanjoe/rpi-cc /bin/bash
+    ls -l
+
+You can check images preset in your system using this command.
+
+    docker image ls
+
+Or list of all cotainers, including stopped.
+
+    docker container ls -a
+
+The most frequent command that will be used in scope of this course presented below. Here current working directory on host evaluated by `pwd` command will be mounted to `/home/workdir` of container, then `make` command will be executed inside container in folder `/home/workdir/demo`, where project Makefile is located. Results of compilation will be stored in `pwd` and container will be killed after execution.
+
+    docker run -v `pwd`:/home/workdir -it romanjoe/rpi-cc make
+
+    docker run -v `pwd`:/home/workdir -it romanjoe/rpi-cc make clean
+
+This command is encapsulated in `run` script in `demo` dir.
+
 
 ### Getting Raspberry Pi ready
 
