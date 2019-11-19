@@ -9,17 +9,19 @@ When you first try to compile a module on Raspbian you get error.
     /bin/sh: 1: scripts/basic/fixdep: Exec format error
 
 This is because of wrong platform binary provided in distribution as result of post cross compilation script.
-All binaries should be for ARM plalform, instead they are build for x86_64 and included in kernel for ARM distribution.
+All binaries should be for ARM 32-bit plalform, instead they are build for 64 bit.
 
 Comparison of included and fixed `fixdep` binaries:
 
 Was:
 
     file /libs/modules/4.19.85-v7+/build/scripts/basic/fixdep
-
+    fixdep: ELF 64-bit LSB pie executable ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-, for GNU/Linux 3.7.0,
+    
 Fixed:
 
     file /libs/modules/4.19.85-v7+/build/scripts/basic/fixdep
+    fixdep: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, for GNU/Linux 3.2.0,
 
 **Get and apply patch**
 
