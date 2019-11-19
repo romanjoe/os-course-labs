@@ -98,8 +98,6 @@ Do not eject SD card yet.
 
 #### Set up wireless connection
 
-## MORE INFO NEEDED HERE
-
 1. Enble `ssh` service on Raspberry Pi
     On Linux and Mac
    
@@ -132,7 +130,11 @@ Replace NETWORK-NAME and NETWORK-PASSWORD with your local WI-FI network credenti
     
     Here we create new file `raspberrypi.local` of knows hosts type. And then logging in to it with user name `pi`. On **password** request type `raspberry` - this is defalt password of `pi` user.
 
-## ADD INFO for Windows
+**On Windows**
+
+Popular program PuTTY can be used to access. Open program and type raspberrypi.local at host name field. Leave other fiels as it is. Warning message would appear at first time connection - add this host to list of knows. 
+
+Login prompt should then appear. Wait a bit, that sometimes takes up to 10 sec for host to discover board.
 
 #### Get updates and linux kernel headers
 
