@@ -3,6 +3,7 @@ CROSS := 1
 PWD = $(shell pwd)
 TARGET1 = gpio_lkm
 TARGET2 = bbb-gpio
+TARGET3 = chardev
 
 ifneq ($(CROSS), 1)
 	CURRENT = $(shell uname -r)
@@ -14,7 +15,7 @@ else
 	export CROSS_COMPILE := arm-linux-gnueabihf-
 endif
 
-obj-m	:=  $(TARGET1).o $(TARGET2).o
+obj-m := $(TARGET1).o $(TARGET2).o $(TARGET3).o
 
 default:
 	$(MAKE) -C $(KDIR) M=$(PWD) modules
