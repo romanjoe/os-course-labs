@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PWD = `pwd`
+set -x #echo on
+docker run -v $PWD:/home/workdir -it romanjoe/rpi-cc "$@"
