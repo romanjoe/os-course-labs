@@ -1,0 +1,28 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+        compatible = "brcm,bcm2835";
+
+        fragment@0 {
+                target = <&i2c_arm>;
+                __overlay__ {
+                        status = "okay";
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+/* Define the BMP085 pressure sensor at address 0x77 */
+                        bmp085: bmp085@77 {
+                                compatible = "bosch,bmp085";
+                                default-oversampling = <3>;
+                                reg = <0x77>;
+                        };
+
+/* Define the HMC5883L magnetic sensor at address 0x1e */
+                        hmc5883l: hmc5883l@1e {
+                                  compatible = "honeywell,hmc5883l";
+                                  reg = <0x1e>;
+                                };
+            };
+        };
+
+};

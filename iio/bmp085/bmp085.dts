@@ -1,0 +1,15 @@
+/dts-v1/;
+/plugin/;
+
+&i2c_arm {
+  status = "okay";
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  /* Define the BMP085 pressure sensor at address 0x77 */
+  bmp085@77 {
+    compatible = "bosch,bmp085";
+    default-oversampling = <3>;
+    reg = <0x77>;
+  };
+};

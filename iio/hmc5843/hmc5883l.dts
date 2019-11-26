@@ -1,0 +1,14 @@
+/dts-v1/;
+/plugin/;
+
+&i2c_arm {
+  status = "okay";
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  /* Define the HMC5883L magnetic sensor at address 0x1e */
+  hmc5883l@1e {
+    compatible = "honeywell,hmc5883l";
+    reg = <0x1e>;
+  };
+};
