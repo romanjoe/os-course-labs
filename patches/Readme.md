@@ -2,7 +2,7 @@
 
 There is a bug in official release of Raspbian Buster Lite distribution, that affecs linux kernel module development.
 
-When you execute `make` command to build modules in standard manner from your work directory, `make` is actually executing in `/libs/modules/4.19.85-v7+/build` and build process uses some kernel infrastructure for build.
+When you execute `make` command to build modules in standard manner from your work directory, `make` is actually executing in `/lib/modules/4.19.75-v7+/build` and build process uses some kernel infrastructure for build.
 
 When you first try to compile a module on Raspbian you get error.
     
@@ -15,12 +15,12 @@ Comparison of included and fixed `fixdep` binaries:
 
 Was:
 
-    file /libs/modules/4.19.85-v7+/build/scripts/basic/fixdep
+    file /lib/modules/4.19.75-v7+/build/scripts/basic/fixdep
     fixdep: ELF 64-bit LSB pie executable ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-, for GNU/Linux 3.7.0,
     
 Fixed:
 
-    file /libs/modules/4.19.85-v7+/build/scripts/basic/fixdep
+    file /lib/modules/4.19.75-v7+/build/scripts/basic/fixdep
     fixdep: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, for GNU/Linux 3.2.0,
 
 **Get and apply patch**
@@ -32,7 +32,7 @@ Ensure you have installed kernel headers and build tools:
 
 Apply patch for fix wrong `fixdep` bin format.
 
-    cd /libs/modules/4.19.85-v7+/build
+    cd /lib/modules/4.19.75-v7+/build
 
     sudo wget https://raw.githubusercontent.com/romanjoe/os-course-labs/master/patches/headers-debian-byteshift.patch -O - | sudo patch -p1
 
