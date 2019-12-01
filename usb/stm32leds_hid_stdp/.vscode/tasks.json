@@ -1,0 +1,114 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "options": {
+        "env": {
+            "TARGET": "STM32F407xx",
+            "OPENOCD_BIN": "/usr/local/bin/openocd",
+            "OPENOCD_PATH": "/usr/local/share/openocd",
+            "BUILDCFG": "Debug"
+        }
+    },
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "command": [
+                "make"
+            ],
+            "args": [
+                "app",
+                "MAKEINFO=1"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": "clean"
+        },
+        {
+            "label": "build log",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "command": [
+                "make"
+            ],
+            "args": [
+                "app",
+                "APP_NAME=stm32leds_hid",
+                "MAKEINFO=0",
+                "|&",
+                "tee",
+                "${workspaceRoot}/BUILD/build.log"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": "clean"
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "command": [
+                "make"
+            ],
+            "args": [
+                "clean",
+                "MAKEINFO=0"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "program",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "command": [
+                "./program.sh"
+            ],
+            "args": [
+                "-a",
+                "stm32leds_hid",
+                "-p"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "erase",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "command": [
+                "./program.sh"
+            ],
+            "args": [
+                "-e"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}

@@ -10,7 +10,6 @@
 # <https://github.com/romanjoe/os-course-labs/usb>
 #
 ################################################################################
-# Copyright 2018-2019 Cypress Semiconductor Corporation
 # SPDX-License-Identifier: Apache-2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -110,7 +109,7 @@ OUT_APP := $(OUT_CFG)
 OUT_FILE_NAME ?= $(OUT_APP)/$(APP_NAME)
 
 # Define build tasks
-.PHONY: all app build clean clean_all build_info
+.PHONY: all app build clean clean_all
 
 all: clean app
 
