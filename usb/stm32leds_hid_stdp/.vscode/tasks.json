@@ -6,7 +6,7 @@
         "env": {
             "TARGET": "STM32F407xx",
             "OPENOCD_BIN": "/usr/local/bin/openocd",
-            "OPENOCD_PATH": "/usr/local/share/openocd",
+            "OPENOCD_SCRIPTS": "/usr/local/share/openocd",
             "BUILDCFG": "Debug"
         }
     },

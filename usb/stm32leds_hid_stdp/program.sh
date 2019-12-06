@@ -1,18 +1,25 @@
 #!/bin/bash
 
+# TODO before start using:
+#
+# set this pathes to your OpenOCD installation dirs
+# or define corresponding environment variables 
+#
+
 # set initial openOCD from env
-OPENOCD_SCRIPTS=${OPENOCD_PATH}
-OPENOCD_BIN=${OPENOCD_BIN}
+OPENOCD_SCRIPTS=/usr/local/share/openocd #$OPENOCD_SCRIPTS
+OPENOCD_BIN=/usr/local/bin/openocd #$OPENOCD_BIN
 
 # # if TARGET is not passed as argument
 # # use $TARGET defined as environment var
 # # VSCode task set this var before run
-TARGET=${TARGET}
+TARGET=$TARGET
 
 # take default build configuration from
 # env variables
-BUILDCFG=${BUILDCFG}
+BUILDCFG=$BUILDCFG
 
+##############################################################################
 # set time to wait after programming
 # before exit
 WAIT_FOR=3
@@ -61,16 +68,6 @@ while getopts "a:t:w:epo:" OPTION; do
     e)  COMMAND="flash erase_address 0x08000000 0x100000"
         ;;
     p)  COMMAND="program $BUILD_DIR_APP/$APP_NAME.hex"
-        ;;
-    o)
-        # update path to openOCD if passed
-        if [[ $OPTARG != "" ]]
-        then
-            OPENOCD=$OPTARG
-        else
-            echo "$USAGE"
-            exit 1
-        fi
         ;;
     *)
         echo "Incorrect usage!"
