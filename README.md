@@ -90,7 +90,7 @@ This command is encapsulated in `run` script in `demo` dir.
 
 #### Software
 
-1. Download **Raspbian OS Buster Lite** from [official site](https://www.raspberrypi.org/downloads/raspbian)
+1. Download **Raspbian OS Buster Lite from 2019-09-30** from [raspbian downloads repo](https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2019-09-30/)
 2. Download **Balena Etcher** software from [Balena](https://www.balena.io/etcher)
 3. Use Balena Etcher to flash Raspbian Buster Lite to SD card.
 
