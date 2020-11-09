@@ -32,7 +32,7 @@ ENV PATH $TOOLCHAIN/bin:$PATH
 
 # Build Raspberry Pi kernel to get working source tree for cross compilation
 WORKDIR /home
-RUN git clone --branch rpi-4.19.y https://github.com/raspberrypi/linux.git
+RUN git clone --depth 1 --branch raspberrypi-kernel_1.20201022-1 https://github.com/raspberrypi/linux.git
 WORKDIR /home/linux
 RUN wget https://raw.githubusercontent.com/romanjoe/os-course-labs/master/kernel-config/.config && \
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- oldconfig && \
